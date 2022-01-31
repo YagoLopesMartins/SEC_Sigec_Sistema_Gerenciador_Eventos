@@ -109,12 +109,13 @@ class PautaController extends Controller
         $select = $request->get('select');
         $value = $request->get('value');
         $dependent = $request->get('dependent');
+        
         $data = DB::table('sub_categorias')
         ->where($select, $value)
         ->get();
 
         $output = '<option value="">
-                    Select '.ucfirst($dependent).
+                    Selecione uma '.ucfirst($dependent).
                 '</option>';
 
         foreach($data as $row){

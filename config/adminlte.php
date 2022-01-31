@@ -375,7 +375,7 @@ return [
                 ],
             ],
             [
-                'text'    => 'VISITAÇÃO NOS ESPAÇOS',
+                'text'    => 'FABRICA',
                 'icon'    => 'fas fa-caret-down',
                 'submenu' => [
                     // [
@@ -392,7 +392,7 @@ return [
                     //     'url'  => 'visitacaoEspacos',
                     // ],
                     [
-                        'text' => 'Visitação',
+                        'text' => 'Visitação Fabrica',
                         'url'  => 'agendamento/fabrica',
                     ],
                     [
@@ -451,21 +451,25 @@ return [
                             ],
                         ],
                     ],
-                    /*[
-                        'text'    => 'SITE',
+                    [
+                        'text'    => 'Visitacao_Testes',
                         'url'     => '#',
                         'icon'    => 'fas fa-caret-down',
                         'submenu' => [
                             [
-                                'text' => 'Programação',
-                                'url'  => '#',
+                                'text' => 'FormVisitacaoEspacos',
+                                'url'  => 'visitacaoEspacos'
                             ],
                             [
-                                'text' => 'Visitação',
-                                'url'  => '#',
+                                'text' => 'FullcallendarXXXX',
+                                'url'  => 'fullcalender'
                             ],
+                            [
+                                'text' => 'Visitacao Admin',
+                                'url'  => '#'
+                            ]
                         ],
-                    ],*/
+                    ],
                 ],
             ],
         /*

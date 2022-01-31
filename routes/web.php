@@ -244,13 +244,16 @@ Route::get('programacaoEventos',          [ProgramacaoEventosController::class, 
 Route::post('fullcalenderAjax',           [ProgramacaoEventosController::class, 'ajax']);
 
 // Testes
-Route::get('visitacaoEspacos/visitante',    [VisitacaoEspacosController::class,   'visitante']);
-Route::get('visitacaoEspacos/qrcode/{id}',  [VisitacaoEspacosController::class,   'qrcode']);
-Route::any('visitacaoEspacos',              [VisitacaoEspacosController::class,   'search']);
-Route::delete('visitacaoEspacos/{id}',      [VisitacaoEspacosController::class,   'destroy']);
-Route::post('visitacaoEspacosCreate',       [VisitacaoEspacosController::class,  'store']);
-Route::get('visitacaoEspacos',              [VisitacaoEspacosController::class,   'index']);
-Route::post('fullcalenderAjax',             [VisitacaoEspacosController::class,   'ajax']);
+Route::get('visitacaoEspacos/visitante',    [VisitacaoEspacosController::class, 'visitante']);
+Route::get('visitacaoEspacos/qrcode/{id}',  [VisitacaoEspacosController::class, 'qrcode']);
+Route::any('visitacaoEspacos/search',       [VisitacaoEspacosController::class, 'search']);
+Route::delete('visitacaoEspacos/{id}',      [VisitacaoEspacosController::class, 'destroy']);
+Route::post('visitacaoEspacosCreate',       [VisitacaoEspacosController::class, 'store']);
+Route::post('fullcalenderAjax',             [VisitacaoEspacosController::class, 'ajax']);
+Route::get('visitacaoEspacos',              [VisitacaoEspacosController::class, 'index']);
+Route::get('visitacaoEspacos/form',         [VisitacaoEspacosController::class, 'index2']);
+Route::post('dynamicdependent/fetch',       [VisitacaoEspacosController::class, 'fetch'])->name('dynamicdependent.fetch');
+// Route::post('dynamicdependent/fetch',     [PautaController::class, 'fetch'])->name('dynamicdependent.fetch');
 
 Route::get('visitacoes/create',             [VisitacaoController::class, 'create' ]);
 Route::put('visitacoes/{id}',               [VisitacaoController::class, 'update' ]);
@@ -264,10 +267,7 @@ Route::get('visitacoes',                    [VisitacaoController::class, 'index'
 Route::get('fullcalender',                [FullCalenderController::class, 'index']);
 Route::post('fullcalenderAjax',           [FullCalenderController::class, 'ajax']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
+// 04268680217
 require __DIR__.'/auth.php';
 
 Route::get('test-acl', function(){
@@ -277,14 +277,6 @@ Route::get('test-acl', function(){
     // dd(auth()->user()->isAdminCheckEmail('gio@gios.com.br'));
     // dd(auth()->user()->isAdmin());
 });
-
-Route::get('/ajax-subcat', function (Request $request){
-    $cat_id = $request->Input::get('cat_id');
-    // dd($cat_id);
-    $subCategorias = SubCategoria::where('categoria_id', '=',$cat_id)->get();
-    return response()->json($subCategorias);
-});
-
 
 Route::get('agendamento/fabrica/qrcode',  [AgendamentoVisitacaoController::class, 'qrcode'  ]);
 Route::post('agendamento/fabrica/create', [AgendamentoVisitacaoController::class, 'store'  ]);
@@ -296,4 +288,3 @@ Route::get('pdf/{id}',                    [AgendamentoVisitacaoController::class
 
 Route::get('horarios',                    [HorariosVisitacaoController::class, 'index'  ]);
 
-Route::post('dynamicdependent/fetch',     [PautaController::class, 'fetch'])->name('dynamicdependent.fetch');

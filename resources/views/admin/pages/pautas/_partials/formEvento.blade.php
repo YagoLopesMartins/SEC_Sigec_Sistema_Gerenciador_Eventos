@@ -63,7 +63,7 @@
         <label class="">Categoria(*)</label>
         <div class="form-group"> 
             <select class="form-control dynamic" 
-            data-dependent="categoria_id"
+            data-dependent="subcategoria_id"
             name="categoria_id" 
             id="categoria_id">
                 @if($formularioCreate === true)
@@ -84,11 +84,9 @@
         </div>
     
         <label>SubCategoria</label>
-        <span class="carregando">Aguarde, carregando ...</span>
         <div class="form-group">
             <select class="form-control dynamic" 
                 name="subcategoria_id" 
-                data-dependent="subcategoria_id"
                 id="subcategoria_id" 
                 required>
                 @if($formularioCreate === true)
@@ -158,47 +156,8 @@
         </div>
 </div>
 
-<script type="text/javascript">
-    $('#categoria_id').on('change',function(e){
-     console.log(e);
-     var cat_id = e.target.value;
-     $('.carregando').show();
-      //ajax
-        $.get('/ajax-subcat?cat_id=' + cat_id, function(data){
-
-            console.log(data);
-            //subcategory
-            $('#subcategoria_id').empty();
-         // $('#subcategoria_id').append($("<option></option>").val("").html("--Select Sub Category--"));
-            $.each(data,function(index, subcatObj){
-                $('#subcategoria_id').append('<option value="'+subcatObj.subcategoria_id+'">'+subcatObj.subcategoria_nome+'</option>');
-            });
-        });
-    });
-</script>
-
 @section('javascript')
    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-     {{-- <script>
-        $(document).ready(function(){
-            var table = $('#datatable').DataTable({
-                'processing': true,
-                'serverSide': true,
-                'ajax': "{{ route('api.customers.index') }}",
-                'columns': [
-                    {'data': 'first_name'},
-                    {'data': 'last_name'},
-                    {'data': 'email'}
-                ],
-            });
-
-            $('.filter-select').change(function(){
-                table.column( $(this).data('column') )
-                    .search( $(this).val() )
-                    .draw();
-            });
-        });
-    </script> --}}
 @endsection
 
 <script>

@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class VisitacaoEspacos extends Model
 {
-
     protected $table = 'horarios_visitacao_espacos';
     protected $primaryKey = 'id';
     protected $guarded = [];
 
     public $timestamps = true;
+
+    public function espaco(){
+        return $this->hasMany(Espaco::class, 'espaco_id'); 
+    }
 
     protected $fillable = [
              'espaco_id', 
@@ -23,10 +26,10 @@ class VisitacaoEspacos extends Model
              'horario_visitacao_espacos_observacoes'
     ];
 
-    public function search($filter = null){
-        $results = $this->where('espaco_id', 'LIKE', "%{$filter}%")
-                        // ->latest()
-                        ->paginate();
-        return $results;
-    }
+    // public function search($filter = null){
+    //     $results = $this->where('espaco_id', 'LIKE', "%{$filter}%")
+    //                     // ->latest()
+    //                     ->paginate();
+    //     return $results;
+    // }
 }

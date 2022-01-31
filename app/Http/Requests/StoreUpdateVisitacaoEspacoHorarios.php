@@ -24,11 +24,12 @@ class StoreUpdateVisitacaoEspacoHorarios extends FormRequest
     public function rules()
     {
         return [
+            'espaco_id'                                 =>          'required|min:1|max:1',
             'horario_visitacao_espacos_data'            =>          'required|min:3|max:255',
             'horario_visitacao_espacos_hora_inicio'     =>          'required|min:1|max:255',
             'horario_visitacao_espacos_hora_fim'        =>          'required|min:1|max:255',
             'horario_visitacao_espacos_numero_vagas'    =>          'required|min:1|max:255',
-            'horario_visitacao_espacos_observacoes'     =>          'required|min:1|max:255',
+            'horario_visitacao_espacos_observacoes'     =>          'nullable',
         ];
     }
 }
