@@ -375,7 +375,7 @@ return [
                 ],
             ],
             [
-                'text'    => 'FABRICA',
+                'text'    => 'FABRICA PAPAI NOEL',
                 'icon'    => 'fas fa-caret-down',
                 'submenu' => [
                     // [
@@ -395,10 +395,10 @@ return [
                         'text' => 'Visitação Fabrica',
                         'url'  => 'agendamento/fabrica',
                     ],
-                    [
-                        'text' => 'Horaríos',
-                        'url'  => 'horarios',
-                    ],
+                    // [
+                    //     'text' => 'Horaríos',
+                    //     'url'  => 'horarios',
+                    // ],
                     [
                         'text' => 'Listagem',
                         'url'  => 'listagem',
@@ -452,22 +452,22 @@ return [
                         ],
                     ],
                     [
-                        'text'    => 'Visitacao_Testes',
+                        'text'    => 'VISITAÇÃO NOS ESPAÇOS',
                         'url'     => '#',
                         'icon'    => 'fas fa-caret-down',
                         'submenu' => [
                             [
-                                'text' => 'FormVisitacaoEspacos',
+                                'text' => 'Horários para visitacao',
                                 'url'  => 'visitacaoEspacos'
                             ],
-                            [
-                                'text' => 'FullcallendarXXXX',
-                                'url'  => 'fullcalender'
-                            ],
-                            [
-                                'text' => 'Visitacao Admin',
-                                'url'  => '#'
-                            ]
+                            // [
+                            //     'text' => 'FullcallendarXXXX',
+                            //     'url'  => 'fullcalender'
+                            // ],
+                            // [
+                            //     'text' => 'Visitacao Admin',
+                            //     'url'  => '#'
+                            // ]
                         ],
                     ],
                 ],

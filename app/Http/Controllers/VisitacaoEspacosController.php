@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUpdateVisitacaoEspacoHorarios;
 use App\Models\Espaco;
 use App\Models\Event;
 use App\Models\VisitacaoEspacos;
+use App\Models\HorariosVisitacao;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
@@ -13,16 +14,32 @@ use Illuminate\Support\Facades\DB;
 
 class VisitacaoEspacosController extends Controller
 {
-    protected $repository, $espaco, $event, $horarios_visitacao_espacos;
+    protected $repository, $espaco, $event, $horarios_visitacao_espacos, $horarios_visitacao;
 
     public function __construct(Espaco $espaco, Event $event, 
-                 VisitacaoEspacos $horarios_visitacao_espacos){
+                 VisitacaoEspacos $horarios_visitacao_espacos, 
+                 HorariosVisitacao $horarios_visitacao){
          $this->espaco = $espaco;
          $this->event = $event;
          $this->horarios_visitacao_espacos = $horarios_visitacao_espacos;
+         $this->horarios_visitacao = $horarios_visitacao;
+     }
+
+     public function store(StoreUpdateVisitacaoEspacoHorarios $request)
+     {
+        //  dd($request);
+        $data = $request->all();
+        // $data['horario_visitacao_espacos_data'] = Carbon::parse($data['horario_visitacao_espacos_data'])->format('d/m/Y');
+         $this->horarios_visitacao_espacos->create($request->all());
+        //  $this->horarios_visitacao_espacos->create($data);
+
+        return redirect('visitacaoEspacos')
+                 ->withSuccess('Horário de visitação ao espaço cadastrado com sucesso!');
      }
 
     public function index(Request $request){
+
+        $horarios = $this->horarios_visitacao->all();
 
        //  $events = $this->event->all();
 
@@ -37,7 +54,7 @@ class VisitacaoEspacosController extends Controller
         //         ->get();
 
         return view('site.pages.visitacaoEspacos.index', 
-            compact('horarios_visitacao_espacos',  'formularioCreate', 'espacos' ));
+            compact('horarios_visitacao_espacos',  'formularioCreate', 'espacos' , 'horarios'));
                 // compact('espacos', 'horarios_visitacao_espacos', 'formularioCreate' ));
     }
 
@@ -129,17 +146,7 @@ class VisitacaoEspacosController extends Controller
          ]);
      }
 
-     public function store(StoreUpdateVisitacaoEspacoHorarios $request)
-     {
-        // dd($request);
-       //  $data = $request->all();
-        // $data['horario_visitacao_espacos_data'] = Carbon::parse($data['horario_visitacao_espacos_data'])->format('d/m/Y');
-         $this->horarios_visitacao_espacos->create($request->all());
-        //  $this->horarios_visitacao_espacos->create($data);
-
-        return redirect('visitacaoEspacos')
-                 ->withSuccess('Horário de visitação ao espaço cadastrado com sucesso!');
-     }
+    
 
      public function qrcode($id){
          if(!$horario_visitacao_espacos_lista = $this->horario_visitacao_espacos->where('id', $id)->first()){
@@ -154,4 +161,56 @@ class VisitacaoEspacosController extends Controller
      public function visitante(){
          return view('site.pages.visitacaoEspacos.formVisitante');
      }
+
+     public function listagem(){
+        $visitantes = $this->repository->all();
+        $horarios = $this->horarios_visitacao->all();
+
+        return view('site.pages.visitacao.listagem',
+            compact('visitantes', 'horarios'));
+    }
+
+    public function listagemInscritos($id){
+
+        // verifica se horario existe
+        // $horario = $this->horarios_visitacao->where('id', $id)->first();
+        // if (!$horario){
+        //     return redirect()->back();
+        // }
+        // busca na tabela visitantes cujo campo horario_visitacao_id seja igual id do horario
+        $visitantes_inscritos_horario = 
+                DB::table("agendamento_visitacaos")
+                ->join("horarios_visitacaos", function($join){
+                    $join->on("agendamento_visitacaos.horario_visitacao_id", "=", "horarios_visitacaos.id");
+                })
+                ->where("agendamento_visitacaos.horario_visitacao_id", "=", $id)
+                ->get();
+        
+        $horario = $this->horarios_visitacao->where('id', $id)->first();
+        //dd($horario);
+
+        return view('site.pages.visitacao.listagemInscritos',
+            compact('visitantes_inscritos_horario', 'horario'));
+    }
+    public function listagemPDF($id){
+
+        $visitantes_inscritos_horario = 
+                DB::table("agendamento_visitacaos")
+                ->join("horarios_visitacaos", function($join){
+                    $join->on("agendamento_visitacaos.horario_visitacao_id", "=", "horarios_visitacaos.id");
+                })
+                ->where("agendamento_visitacaos.horario_visitacao_id", "=", $id)
+                ->get();
+        
+        $horario = $this->horarios_visitacao->where('id', $id)->first();
+
+        $texto_arquivo_pdf = $horario->horario_visitacao_data.'-'.$horario->horario_visitacao_hora_inicio;
+
+        return PDF::loadView('site.pages.visitacao.listagemPDF', 
+            compact('visitantes_inscritos_horario', 'horario'))
+             // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
+             //->setPaper('a4', 'landscape')
+            //  ->download('DATA-HORA.pdf');
+             ->download($texto_arquivo_pdf.'.pdf');
+    }
 }

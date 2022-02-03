@@ -14,9 +14,8 @@ class AgendamentoVisitacaoController extends Controller
 {
     private $repository, $horarios_visitacao;
 
-    public function __construct(
-                AgendamentoVisitacao $agendamentoVisitacao, 
-                HorariosVisitacao $horarios_visitacao)
+    public function __construct( AgendamentoVisitacao $agendamentoVisitacao, 
+                                 HorariosVisitacao $horarios_visitacao)
     {
         $this->repository = $agendamentoVisitacao;
         $this->horarios_visitacao = $horarios_visitacao;

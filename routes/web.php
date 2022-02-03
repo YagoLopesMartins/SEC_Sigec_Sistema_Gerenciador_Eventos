@@ -248,7 +248,7 @@ Route::get('visitacaoEspacos/visitante',    [VisitacaoEspacosController::class, 
 Route::get('visitacaoEspacos/qrcode/{id}',  [VisitacaoEspacosController::class, 'qrcode']);
 Route::any('visitacaoEspacos/search',       [VisitacaoEspacosController::class, 'search']);
 Route::delete('visitacaoEspacos/{id}',      [VisitacaoEspacosController::class, 'destroy']);
-Route::post('visitacaoEspacosCreate',       [VisitacaoEspacosController::class, 'store']);
+Route::post('visitacao/espacos/create',       [VisitacaoEspacosController::class, 'store']);
 Route::post('fullcalenderAjax',             [VisitacaoEspacosController::class, 'ajax']);
 Route::get('visitacaoEspacos',              [VisitacaoEspacosController::class, 'index']);
 Route::get('visitacaoEspacos/form',         [VisitacaoEspacosController::class, 'index2']);
