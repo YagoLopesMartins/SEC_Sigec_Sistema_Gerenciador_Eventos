@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VisitacaoEspacos extends Model
 {
-    protected $table = 'horarios_visitacao_espacos';
+    protected $table = 'horarios_visitacaos';
     protected $primaryKey = 'id';
     protected $guarded = [];
 
@@ -19,10 +19,11 @@ class VisitacaoEspacos extends Model
 
     protected $fillable = [
              'espaco_id', 
-             'horario_visitacao_espacos_data', 
-             'horario_visitacao_espacos_hora_inicio', 
-             'horario_visitacao_espacos_hora_fim',
-             'horario_visitacao_espacos_numero_vagas',
+             'horario_visitacao_data', 
+             'horario_visitacao_hora_chegada_estacao', 
+             'horario_visitacao_hora_inicio', 
+             'horario_visitacao_hora_fim',
+             'horario_visitacao_numero_vagas',
              'horario_visitacao_espacos_observacoes'
     ];
 

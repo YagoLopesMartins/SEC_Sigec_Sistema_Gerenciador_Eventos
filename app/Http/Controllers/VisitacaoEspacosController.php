@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Http\Requests\StoreUpdateVisitacaoEspacoHorarios;
 use App\Models\Espaco;
 use App\Models\Event;
@@ -14,37 +15,26 @@ use Illuminate\Support\Facades\DB;
 
 class VisitacaoEspacosController extends Controller
 {
-    protected $repository, $espaco, $event, $horarios_visitacao_espacos, $horarios_visitacao;
+    protected $espaco, $event, 
+              $horarios_visitacao_espacos, $horarios_visitacao;
 
     public function __construct(Espaco $espaco, Event $event, 
-                 VisitacaoEspacos $horarios_visitacao_espacos, 
-                 HorariosVisitacao $horarios_visitacao){
+                                VisitacaoEspacos $horarios_visitacao_espacos, 
+                                HorariosVisitacao $horarios_visitacao){
          $this->espaco = $espaco;
          $this->event = $event;
          $this->horarios_visitacao_espacos = $horarios_visitacao_espacos;
          $this->horarios_visitacao = $horarios_visitacao;
      }
 
-     public function store(StoreUpdateVisitacaoEspacoHorarios $request)
-     {
-        //  dd($request);
-        $data = $request->all();
-        // $data['horario_visitacao_espacos_data'] = Carbon::parse($data['horario_visitacao_espacos_data'])->format('d/m/Y');
-         $this->horarios_visitacao_espacos->create($request->all());
-        //  $this->horarios_visitacao_espacos->create($data);
-
-        return redirect('visitacaoEspacos')
-                 ->withSuccess('Horário de visitação ao espaço cadastrado com sucesso!');
-     }
-
-    public function index(Request $request){
+     public function index(Request $request){
 
         $horarios = $this->horarios_visitacao->all();
 
        //  $events = $this->event->all();
 
         // $horario_visitacao_espacos = $this->horario_visitacao_espacos->all();
-        $formularioCreate = true;
+        // $formularioCreate = true;
 
         $horarios_visitacao_espacos = DB::table('horarios_visitacao_espacos')->get();
         $espacos = DB::table('espacos')->get();
@@ -54,9 +44,28 @@ class VisitacaoEspacosController extends Controller
         //         ->get();
 
         return view('site.pages.visitacaoEspacos.index', 
-            compact('horarios_visitacao_espacos',  'formularioCreate', 'espacos' , 'horarios'));
-                // compact('espacos', 'horarios_visitacao_espacos', 'formularioCreate' ));
+            compact('horarios_visitacao_espacos', 'espacos' , 'horarios'));
+          
     }
+
+     public function store(Request $request)
+     {
+        $data = $request->all();
+
+        $espaco_nome_row =  $this->espaco
+            ->select('espaco_nome')
+            ->where('espaco_id', $data['espaco_id'])
+            ->first();
+       
+        $slug_espaco = Str::slug($espaco_nome_row->espaco_nome, '-');
+        
+        $data['horario_visitacao_data'] = Carbon::parse($data['horario_visitacao_data'])->format('d/m/Y');
+        //  $this->horarios_visitacao_espacos->create($request->all());
+         $this->horarios_visitacao_espacos->create($data);
+
+        return redirect('visitacaoEspacos')
+                 ->withSuccess('Horário de visitação ao espaço cadastrado com sucesso!');
+     }
 
     public function index2(Request $request){
 
@@ -146,15 +155,11 @@ class VisitacaoEspacosController extends Controller
          ]);
      }
 
-    
-
      public function qrcode($id){
          if(!$horario_visitacao_espacos_lista = $this->horario_visitacao_espacos->where('id', $id)->first()){
              return redirect()->back();
          }
-        // dd($horario_visitacao_espacos_lista);
          $uri = "qrcode";
-        
          return view('site.pages.visitacaoEspacos.qrcode', compact('uri', 'horario_visitacao_espacos_lista'));
      }
 

@@ -18,66 +18,54 @@
                     <div class="form-group">
                         <label>Espaço</label>
                         <select class="form-control" name="espaco_id" id="espaco_id">
-                            @if($formularioCreate === true)
-                                <option value=""> -- Selecione --</option>
-                                    @foreach($espacos as $espaco)
-                                        <option value="{{ $espaco->espaco_id ?? old('espaco_id') }}">{{$espaco->espaco_nome}}</option>
-                                    @endforeach
-                            @else
+                            <option value=""> -- Selecione --</option>
                                 @foreach($espacos as $espaco)
-                                    @if($espaco->espaco_id === $pauta->espaco_id)
-                                        <option value="{{ $espaco->espaco_id ?? old('espaco_id') }}" selected>{{$espaco->espaco_nome}}</option>
-                                    @else
-                                        <option value="{{ $espaco->espaco_id ?? old('espaco_id') }}">{{$espaco->espaco_nome}}</option>
-                                    @endif
+                                    <option value="{{ $espaco->espaco_id ?? old('espaco_id') }}">{{$espaco->espaco_nome}}</option>
                                 @endforeach
-                            @endif
                         </select> 
                     </div>
                 </div>
-            <div class="row">
-                <div class="form-group">
-                    <label>Data</label>
-                    <input type="date" name="horario_visitacao_espacos_data" 
-                        class="form-control" placeholder="Ex.: 22/01/2022" 
-                        value="{{ old('horario_visitacao_espacos_data') }}" required>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" name="horario_visitacao_data" 
+                            class="form-control" placeholder="Ex.: 22/01/2022" 
+                            value="{{ old('horario_visitacao_espacos_data') }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hora Inicio:</label>
+                        <input type="text" name="horario_visitacao_hora_inicio" 
+                            class="form-control" placeholder="Ex.: 07:35" 
+                            value="{{ old('horario_visitacao_espacos_hora_inicio') }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hora Fim:</label>
+                        <input type="text" name="horario_visitacao_hora_fim" 
+                            class="form-control" placeholder="Ex.: 09:35" 
+                            value="{{ old('horario_visitacao_espacos_hora_fim') }}" required> 
+                    </div>
+                    <div class="form-group">
+                        <label>Quantidade de Vagas:</label>
+                        <input type="text" name="horario_visitacao_numero_vagas" 
+                            class="form-control" placeholder="Ex.: 25" 
+                            value="{{ old('horario_visitacao_espacos_numero_vagas') }}" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Hora Inicio:</label>
-                    <input type="text" name="horario_visitacao_espacos_hora_inicio" 
-                        class="form-control" placeholder="Ex.: 07:35" 
-                        value="{{ old('horario_visitacao_espacos_hora_inicio') }}" required>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Observacoes:</label>
+                        <textarea type="text" rows="3" cols="8"
+                            name="horario_visitacao_espacos_observacoes" 
+                            class="form-control" placeholder="" 
+                            value="">
+                        </textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Hora Fim:</label>
-                    <input type="text" name="horario_visitacao_espacos_hora_fim" 
-                        class="form-control" placeholder="Ex.: 09:35" 
-                        value="{{ old('horario_visitacao_espacos_hora_fim') }}" required> 
+                <div class="col m-lg-auto">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Quantidade de Vagas:</label>
-                    <input type="text" name="horario_visitacao_espacos_numero_vagas" 
-                        class="form-control" placeholder="Ex.: 25" 
-                        value="{{ old('horario_visitacao_espacos_numero_vagas') }}" required>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="form-group">
-                    <label>Observacoes:</label>
-                    <textarea type="text" rows="3" cols="8"
-                        name="horario_visitacao_espacos_observacoes" 
-                        class="form-control" placeholder="" 
-                        value="">
-                    </textarea>
-                </div>
-                
-            </div>
-            <div class="col m-lg-auto">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                </div>
-            </div>
         </form>
     </div>
     <div class="card-body">
