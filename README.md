@@ -22,10 +22,12 @@
   - **Passo 03.1:** No arquivo .env setar (inserir) o nome da base criada no passo 02
  - **Passo 04:** Executar comando: **$ composer update**
  - **Passo 05:** executar: 
-    - $ php artisan key:generate
-    - **$ php artisan migrate** (OPCIONAL)
-    - _$ php artisan db:seed (OPCIONAL)
-    - $ php artisan serve
+    - **$ php artisan serve**
+      -Abrir navegador (Sua preferência) e acessar: http://localhost:8000/
+    - $ php artisan key:generate (OPCIONAL)
+    - $ php artisan migrate (OPCIONAL)
+    - $ php artisan db:seed (OPCIONAL)
+    
 
 # Principais funcionalidades
 
