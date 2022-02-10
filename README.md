@@ -16,10 +16,11 @@
  # Como utilizar o projeto ?
 
  - **Passo 01:** Baixar projeto zip ou clonar diretamente do gitlab: **$ git clone url...**
- - **Passo 02:** Executar comando: **$ composer update**
- - **Passo 03:** Criar base de dados (nome da base a sua escolha)
- - **Passo 04:** Criar arquivo .env na raiz do projeto ou Renomear arquivo .env.example da raiz do projeto para .env
-  - **Passo 04.1:** No arquivo .env setar (inserir) o nome da base criada no passo 03
+ 
+ - **Passo 02:** Criar base de dados (nome da base a sua escolha)
+ - **Passo 03:** Criar arquivo .env na raiz do projeto ou Renomear arquivo .env.example da raiz do projeto para .env
+  - **Passo 03.1:** No arquivo .env setar (inserir) o nome da base criada no passo 02
+ - **Passo 04:** Executar comando: **$ composer update**
  - **Passo 05:** executar: 
     - $ php artisan key:generate
     - **$ php artisan migrate** (OPCIONAL)
